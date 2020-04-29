@@ -9,30 +9,67 @@
 <body>
     <div id="container">
         <span id="winner"></span>
-        <div id="game_container">
-            <div data-position="0"></div>
-            <div data-position="1"></div>
-            <div data-position="2"></div>
-            <div data-position="3"></div>
-            <div data-position="4"></div>
-            <div data-position="5"></div>
-            <div data-position="6"></div>
-            <div data-position="7"></div>
-            <div data-position="8"></div>
+        <div class="d-flex">
+        <div class="player1_container">
+            <h2 id="player1_name">
+                Player(X)
+            </h2>
+            <span class="score player1_score">0</span>
         </div>
-        <a href="#" id="restart">Restart</a>
+        <div id="">
+            <div id="game_container">
+                <div data-position="0"></div>
+                <div data-position="1"></div>
+                <div data-position="2"></div>
+                <div data-position="3"></div>
+                <div data-position="4"></div>
+                <div data-position="5"></div>
+                <div data-position="6"></div>
+                <div data-position="7"></div>
+                <div data-position="8"></div>
+            </div>
+            
+        </div>
+        <div class="player2_container">
+            <h2 id="player2_name">
+                Player(O)
+            </h2>
+            <div>
+                <span class="score player2_score">0</span>
+            </div>
+        </div>
+        
+        </div>
+        <div class="buttons_box">
+            <a href="#" id="restart">Restart</a>
+            <a href="#" id="exit">Exit</a>
+        </div>
+        
     </div>
-    <!-- <div class="modal_container">
+    <div class="modal_container">
         <div class="modal">
-            <h2>What's your name</h2>
-            <form id="userName">
+            <h2>TIC TAC TOE</h2>
+            
+            <form id="username">
                 
-                <input type="text" placeholder="Name...">
+               <div class="d-flex">
+                <div>
+                    <label for="player1">Player1(X) choose your name</label><br>
+                    <input type="text" placeholder="Name..." id="player1" required><br>
+                    <span class="error_message player1_error">Max character length is 10</span>
+
+                </div>
+                <div>
+                    <label for="player2">Player2(O) choose your name</label><br>
+                    <input type="text" placeholder="Name..." id="player2" required>
+                    <span class="error_message player2_error">Max character length is 10</span>
+                </div>
+               </div>
                 <input type="submit" value="Submit">
             </form>
 
         </div>
-    </div> -->
+    </div>
     <script src="index.js" defer></script>
 </body>
 </html>

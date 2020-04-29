@@ -11,81 +11,101 @@ body {
 
 #container {
     width: 90%;
-    max-width: 500px;
+    max-width: 1260px;
     margin: 3rem auto;
     
 }
-input,a {
+input,a,label,span {
     display: inline-block;  
 }
 #container #game_container {
     display: grid;
-    grid-template-columns: repeat(3,1fr);
-    grid-auto-rows: minmax(150px,auto);
+    grid-template-columns: repeat(3,120px);
+    grid-auto-rows: minmax(120px,auto);
     
 
+}
+#container .d-flex {
+    margin-top: 5rem;
+   display: flex;
+   justify-content: space-between;
+}
+.player1_container, .player2_container {
+    display: flex;
+    
+    justify-content: center;
+    flex-direction: column;
+}
+ 
+#container h2 {
+    font-size: 2rem;
+}
+#container .score {
+    
+    margin-top: 2rem;
+    font-size: 2rem;
+}
+ 
+#container .player1_container {
+    width: 16%;
+    text-align: center;
+    
+}
+#container .player2_container {
+    width: 16%;
+    text-align: center;
+     
+}
+#container #game_container {
+    width: 40%;
+    margin: 0 1rem;
 }
 #game_container div {
     text-align: center;
     cursor: pointer;
-    font-size: 8rem;
-}
-#game_container div:nth-child(1){
-     
-    border-bottom: 10px solid #000;
-}
-#game_container div:nth-child(2){
-    border-left: 10px solid #000;
-    border-right: 10px solid #000;
-    border-bottom: 10px solid #000;
-}
-#game_container div:nth-child(3){
-    border-bottom: 10px solid #000;
-}
-#game_container div:nth-child(4){
-    border-bottom: 10px solid #000;
-}
-#game_container div:nth-child(5){
-    border-left: 10px solid #000;
-    border-right: 10px solid #000;
-    border-bottom: 10px solid #000;
-}
-#game_container div:nth-child(6){
-    border-bottom: 10px solid #000;
-}
-
-#game_container div:nth-child(8){
-    border-left: 10px solid #000;
-    border-right: 10px solid #000;   
+    font-size: 4rem;
+    
 }
  
+#game_container div {
+    border: 4px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .modal_container {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
     height: 100%;
    
     color: #fff;
 }
 .modal {
-    width: 400px;
+    width: 600px;
     height: 400px;
-    margin: 2rem auto;
+    margin: 7rem auto;
     background-color: #000;
     text-align: center;
     padding: 2rem;
 
 }
+.modal .d-flex {
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+}
+.modal form label {
+    margin-bottom: 1.2rem;
+}
 .modal h2 {
     font-size: 2rem;
     margin-bottom: 3rem;
 }
-.modal form {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+ 
 .modal input {
     
     border: 0;
@@ -98,24 +118,75 @@ input,a {
     margin-right: 0.6rem;
    
 }
+ 
 .modal input[type="submit"]{
+    margin-top: 3rem;
+    width: 50%;
     padding: 0.8rem 0.6rem;
     color: #fff;
     background-color: royalblue;
     cursor: pointer;
 }
-
-#restart {
-    text-transform: uppercase;
-    padding: 1rem 2rem;
-    color: #fff;
-    background-color: #000;
-    text-decoration: none;
-    margin: 2rem auto;
-    display: flex;
-    justify-content: center;
+.modal .same_name {
+    color: rgb(238, 15, 15);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    animation: anim 3s linear;
+}
+ 
+.modal .error_message {
+    color: rgb(238, 15, 15);
+    margin-top: 0.7rem;
+    animation: anim 3s linear;
+    display: none;
+}
+@keyframes anim {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    30% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    70% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
+.buttons_box {
+    display: flex;
+    width: 350px;
+    margin: 0 auto;
+    text-align: center;
+}
+.buttons_box a{
+    flex: 1;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    color: #000;
+    border: 2px solid #000;
+    text-decoration: none;
+    margin: 4rem  1rem 0 0;
+    transition: all 0.4s linear;
+}
+.buttons_box a:hover {
+    background-color: #000;
+    color: #fff;
+}
+.buttons_box a:last-child {
+    margin-right: 0;
+}
+
+ 
+ 
 #winner {
     display: block;
     font-weight: 900;
@@ -141,3 +212,104 @@ input,a {
         opacity: 1;
     }
 }
+
+@media(max-width: 1160px) {
+    #container h2{
+        font-size: 1.8rem;
+        
+    }
+    #container {
+        max-width: 100%;
+    }
+    #container #game_container {
+        width: 35%;
+    }
+    #container .player1_container {
+        width: 13%
+    }
+    #container .player2_container {
+        width: 13%
+    }
+    #container .d-flex{
+         
+        justify-content: space-between
+     }
+}
+@media(max-width: 1000px){
+    #container #game_container {
+        
+        grid-template-columns: repeat(3, 100px);
+        grid-auto-rows: minmax(100px, auto);
+         
+        align-self: center;
+        justify-self: center;
+         
+    }
+    #container #winner {
+        margin-bottom: 1rem;
+    }
+    #container .d-flex {
+        margin-top: 2rem;
+    }
+    .buttons_box {
+        width: 300px;
+    }
+    #container .player1_container {
+        margin-bottom: 1rem;
+    }
+    #container .score {
+        margin-top: 0.4rem;
+    }
+    #container .d-flex {
+      flex-direction: column;
+      align-items: center; 
+     }
+    
+     #container #game_container div {
+         font-size: 4rem;
+         border: 2px solid #000;
+     }
+     #container #winner {
+         font-size: 2.3rem;
+     }
+    
+     #container .player2_container{
+         margin-top: 1rem;
+     }
+}
+@media(max-width: 700px){
+   .modal {
+       width: 90%;
+       height: auto;
+   }
+   #container .player1_container{
+       width: 100%;
+       flex: 1;
+   }
+   #container .player2_container {
+        width: 100%;
+        flex: 1;
+   } 
+   .modal input[type="submit"] {
+       width: 100%;
+   }  
+   .modal .d-flex div {
+    width: 100%;
+    }
+    .modal input[type="text"]{
+        width: 100%;
+    }
+    
+   .modal .d-flex {
+       flex-direction: column;
+       align-items: center;
+   }
+   .modal .d-flex div:nth-child(2) {
+       margin-top: 2rem;
+   }
+    .buttons_box a {
+        padding: 1rem 1.3rem;
+    }
+     
+}
+

@@ -1,10 +1,15 @@
- 
+ let player1,computer,player2,currentPlayer;
+ let gameScorePlayer1 = 0;
+ let gameScorePlayer2 = 0;
+  
  const gameBoard = (function(){
     let board = [
         ['','',''],
         ['','',''],
         ['','','']
     ]
+
+    
     const checkValidity = position =>{
         switch(position){
           case 0:
@@ -47,10 +52,10 @@
       const isValid = (position)=>{
         return checkValidity(position) ? true : false;
       }
-      const isEmpty = ()=>{
+      const isFull = ()=>{
         return board.every(row =>{
-           return  row.every(item => item === '');
-         })
+          return row.every(cell => cell != '')
+       })   
      }
     const fillArray = (mark,position) =>{
         const boardElement = document.querySelector('#game_container');
@@ -86,7 +91,7 @@
             board[2][2] = mark;
           break;
         }
-        console.table(board)
+      
     }
      
     const winRow = mark =>{
@@ -164,7 +169,7 @@
     return {
         win,
         fillArray,
-        isEmpty,
+        isFull,
         winRow,
         clearBoard,
         
@@ -180,32 +185,34 @@
          mark
      }
  }
- const player = players('Johongir','x')
- const computer = players('computer', 'o');
+  
  
 const selectCurrentPlayer = (name)=>{
-    if(player.name === name){
-        return computer;
+    if(player1.name === name){
+        return player2;
     } else {
-        return player;
+        return player1;
     }
 }
 const game = (function(){
-    let currentPlayer = player;
-    
+   
     const playGame = (position)=>{
        
                
             gameBoard.fillArray(currentPlayer.mark, position);
             
             if(gameBoard.win(currentPlayer.mark)){
-                document.getElementById('winner').textContent = `Winner is ${currentPlayer.name}`;
+                document.getElementById('winner').textContent = `Winner is ${setWinner(currentPlayer,gameScorePlayer1, gameScorePlayer2)}`;
                 document.getElementById('winner').classList.add('animate');
-                currentPlayer = player;
-                console.log(currentPlayer)
+                currentPlayer = player1;
+                
                 document.querySelectorAll('#game_container div').forEach(cell => cell.removeEventListener('click', fillBoard))
                 return;
-            }
+            }  
+              if(gameBoard.isFull()){
+                document.getElementById('winner').textContent = 'It\s a draw'
+                return;
+              }
             currentPlayer = selectCurrentPlayer(currentPlayer.name)
         
     }
@@ -214,6 +221,20 @@ const game = (function(){
     }
 })()
 
+
+function setWinner(winner,scoreKeeperPlayer1, scoreKeeperPlayer2){
+  const player1Score = document.querySelector('.player1_score');
+  const player2Score = document.querySelector('.player2_score');
+  if(winner.name === player1.name){
+    scoreKeeperPlayer1++;
+    player1Score.textContent = parseInt(player1Score.textContent) + scoreKeeperPlayer1;
+    return winner.name.toUpperCase();
+  } else {
+    scoreKeeperPlayer2++;
+    player2Score.textContent = parseInt(player2Score.textContent) + scoreKeeperPlayer2;
+    return winner.name.toUpperCase();
+  }
+}
 
 
 
@@ -233,7 +254,75 @@ const game = (function(){
     
 
  }
+ function selectUserNameAndMark(e){
+   e.preventDefault();
+   const player1Input = document.getElementById('player1');
+   const player2Input = document.getElementById('player2');
+   const errorMessage = document.querySelectorAll('.error_message');
+   
+  if(player1Input.value == player2Input.value){
+    const div = document.createElement('div');
+    div.textContent = 'Do not choose same name!';
+    div.classList.add('same_name')
+    document.getElementById('username').appendChild(div);
+    document.getElementById('username').insertBefore(div, document.querySelector('#username .d-flex'));
+    setTimeout(() => {
+        div.remove()
+    }, 5000);
+    return;
+  }
+
+   if(hasValidLength(player1Input.value, player2Input.value,errorMessage)){
+      player1 = players(player1Input.value,'x');
+      player2 = players(player2Input.value, 'o');
+      currentPlayer = player1;
+      // remove model
+      document.querySelector('.modal_container').style.display = 'none';
+      // update player names in ui
+      const player1Name = document.querySelector('#player1_name');
+      const player2Name = document.querySelector('#player2_name');
+      player1Name.textContent = `${player1Input.value.toUpperCase()}(X)`;
+      player2Name.textContent =`${player2Input.value.toUpperCase()}(O)`;
+   }
+
+    
+   
+ 
+ }
+ function hasValidLength(player1Value, player2Value,errorMessage){
+   if(player1Value.length > 10 && player2Value.length > 10) {
+      
+    errorMessage.forEach(el => el.style.display = 'block');
+    setTimeout(() => {
+      errorMessage.forEach(el => el.style.display = 'none'); 
+     }, 3000);
+     return false
+   } else if(player1Value.length > 10){
+     const player1 = document.querySelector('.player1_error')
+     player1.style.display = 'block';
+    setTimeout(() => {
+       player1.style.display = 'none';
+     }, 3000);
+     return false
+   } else if(player2Value.length > 10){
+     const player2 = document.querySelector('.player2_error')
+     player2.style.display = 'block';
+    setTimeout(() => {
+      player2.style.display = 'none';
+     }, 3000);
+     return false
+   }
+    return true
+
+ }
+ function loadThePage(){
+   document.location.reload();
+ }
 // listen click even on each cell in board
  document.querySelectorAll('#game_container div').forEach(cell => cell.addEventListener('click', fillBoard));
 
  document.getElementById('restart').addEventListener('click', restartTheGame)
+
+ document.getElementById('username').addEventListener('submit',selectUserNameAndMark);
+
+ document.getElementById('exit').addEventListener('click',loadThePage);
